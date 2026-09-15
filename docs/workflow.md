@@ -12,13 +12,9 @@ Prepare splits before augmentation, keeping each patient/lesion within a single 
 
 The default maintained route is single-model ResNet training. It uses existing `models.py` and `train.py`, not a separate illustrative classifier. Model alternatives, ensemble and cross-validation code in the repository are retained but are not presented as tested CLI modes.
 
-## Repairs
+## Input and checkpoint handling
 
-- Fixed the `training` versus `train.py` import mismatch.
-- Replaced the broken hard-coded main routine with explicit arguments and a downloadable-weight opt-out.
-- Removed an unsupported scheduler argument and made checkpoint creation robust to zero initial validation accuracy.
-- Labelled image-loading errors now raise instead of silently training on a dummy image assigned to class 0.
-- README paths and examples now match tracked files; placeholder clone/contact URLs were corrected.
+Image-loading errors raise an exception. The first epoch can produce a checkpoint even when validation accuracy is zero. Use `--no-pretrained` to disable pretrained-weight downloads.
 
 ## Verification
 
