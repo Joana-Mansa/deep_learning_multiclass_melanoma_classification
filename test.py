@@ -18,7 +18,7 @@ from tqdm import tqdm
 
 from config import *
 from models import EnsembleModel, create_model
-from training import train_model, create_training_config
+from train import train_model, create_training_config
 
 # ========================================
 # SINGLE MODEL EVALUATION

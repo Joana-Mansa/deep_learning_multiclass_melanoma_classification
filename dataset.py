@@ -229,16 +229,12 @@ class DermoscopicDataset(data.Dataset):
             if class_name in CLASS_TO_IDX:
                 target = CLASS_TO_IDX[class_name]
             else:
-                print(f"Warning: Unknown class '{class_name}', using class 0")
-                target = 0
+                raise ValueError(f"Unknown class: {class_name}")
             
             return cropped_image, torch.tensor(target, dtype=torch.long)
             
         except Exception as e:
-            print(f"Error loading image at index {index}: {e}")
-            # Return a dummy sample
-            dummy_image = torch.zeros(3, self.image_size, self.image_size)
-            return dummy_image, torch.tensor(0, dtype=torch.long)
+            raise ValueError(f"Cannot load labelled image at index {index}: {e}") from e
 
     def __len__(self):
         return len(self.image_filenames)

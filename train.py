@@ -272,7 +272,7 @@ def train_single_epoch(model, train_loader, optimizer, criterion,
     metric_function.reset()
     cohen_kappa_function.reset()
     
-    return np.mean(batch_losses), train_acc, train_kappa
+    return float(np.mean(batch_losses)), train_acc, train_kappa
 
 def validate_single_epoch(model, val_loader, criterion, metric_function, 
                          cohen_kappa_function, device):
@@ -305,7 +305,7 @@ def validate_single_epoch(model, val_loader, criterion, metric_function,
     metric_function.reset()
     cohen_kappa_function.reset()
     
-    return np.mean(batch_losses), val_acc, val_kappa
+    return float(np.mean(batch_losses)), val_acc, val_kappa
 
 def train_model(model, train_loader, val_loader, config):
     """Complete training loop with advanced features"""
@@ -337,7 +337,7 @@ def train_model(model, train_loader, val_loader, config):
         'lr': []
     }
     
-    best_val_acc = 0.0
+    best_val_acc = float("-inf")
     best_epoch = 0
     best_metrics = {}
     
@@ -450,7 +450,7 @@ def create_training_config(model, learning_rate=LEARNING_RATE,
     if use_scheduler:
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, mode='min', factor=LR_SCHEDULER_FACTOR, 
-            patience=LR_SCHEDULER_PATIENCE, verbose=True
+            patience=LR_SCHEDULER_PATIENCE
         )
     
     # Early stopping
